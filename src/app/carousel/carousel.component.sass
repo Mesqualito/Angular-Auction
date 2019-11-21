@@ -1,0 +1,32 @@
+// :host pseudo-class selector
+// the "host" is the carousel template
+\:host
+  // display component as a block element which takes the entire width
+  display: block
+  // adds space below the carousel
+  margin-bottom: 10px
+
+// images take the entire width of the carousel
+img
+  width: 100%
+
+// to override special bootstrap4 css-definitions only for this component, custom styling can also be placed here
+// '.carousel-indicators li' looks original like this in bootstrap:
+// ----- bootstrap 4 -----
+// .carousel-indicators li {
+//    position: relative;
+//    -webkit-box-flex: 0;
+//    -ms-flex: 0 1 auto;
+//    flex: 0 1 auto;
+//    width: 30px;
+//    height: 3px;
+//    margin-right: 3px;
+//    margin-left: 3px;
+//    text-indent: -999px;
+//    background-color: rgba(255, 255, 255, 0.5);
+// -----------------------
+// change the bootstrap-default indicators from dashes to circles in this carousel Angular-component:
+.carousel-indicators li
+  width: 10px
+  height: 10px
+  border-radius: 100%
