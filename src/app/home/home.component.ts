@@ -1,15 +1,17 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
+import {Product, ProductService} from "../shared/product.service";
 
 @Component({
   selector: 'nga-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.sass']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent {
 
-  constructor() { }
+  products: Product[] = [];
 
-  ngOnInit() {
+  constructor(private _productService: ProductService) {
+    this.products = this._productService.getProducts();
   }
 
 }

@@ -1,1 +1,11 @@
-<p>product-item works!</p>
+<div class="thumbnail">
+  <img src="https://via.placeholder.com/320x150.png?text=ProductItem">
+  <div class="caption">
+    <h4 class="float-right">{{product.price | currency}}</h4>
+    <h4><a [routerLink]="['/products', product.id]">{{product.title}}</a></h4>
+    <p>{{product.description}}</p>
+  </div>
+  <div class="ratings">
+    <nga-stars [rating]="product.rating"></nga-stars>
+  </div>
+</div>
