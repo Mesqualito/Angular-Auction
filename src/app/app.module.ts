@@ -8,7 +8,7 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatIconModule} from "@angular/material/icon";
 import {FlexLayoutModule} from "@angular/flex-layout";
-import {ProductService} from "./shared/services/product.service";
+import {ProductService} from "./shared/services";
 
 @NgModule({
   declarations: [
