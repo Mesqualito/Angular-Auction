@@ -8,6 +8,8 @@ import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatIconModule} from "@angular/material/icon";
 import {FlexLayoutModule} from "@angular/flex-layout";
 import {ProductService} from "./shared/services";
+import {routes} from "./app.routing";
+import {RouterModule} from "@angular/router";
 
 @NgModule({
   declarations: [
@@ -15,6 +17,7 @@ import {ProductService} from "./shared/services";
   ],
   imports: [
     BrowserModule,
+    RouterModule.forRoot(routes),
     MatButtonModule,
     MatIconModule,
     MatToolbarModule,
