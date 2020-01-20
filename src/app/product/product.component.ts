@@ -24,10 +24,12 @@ export class ProductComponent implements OnInit {
       // 'parseInt()' returns NaN with the "double-bang"-syntax in the filter when no number is entered,
       // non-alpha characters will not get through the 'filter'-operator
       filter(productId => !!productId ),
+      // switch over to the observable returned by 'getById()':
       switchMap(productId => this.productService.getById(productId))
     );
 
-      this.suggestedProducts$ = this.productService.getAll();
+    // get the suggested products:
+    this.suggestedProducts$ = this.productService.getAll();
   }
 
   ngOnInit() {
