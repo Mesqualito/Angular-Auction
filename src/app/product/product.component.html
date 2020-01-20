@@ -1,1 +1,8 @@
-<p>product works!</p>
+<!-- on larger than medium viewports shows product detail on the right
+and suggested products on the left -->
+<div class="wrapper" fxLayout="column" fxLayout.gt-md="row-reverse">
+  <!-- 'fxFlex="auto"' gives enough space to render this component but not more;
+  '*ngIf="product$ | async as product"' puts the values of product$ in the local template variable 'product', if any;
+  '[product]="product"' passes the product object to '<nga-product-detail>' for rendering -->
+  <nga-product-detail fxFlex="auto" fxFlex.gt-md="65%" *ngIf="product$ | async as product" [product]="product"></nga-product-detail>
+  <nga-product-suggestion fxFlex="auto" fxFlex.gt-md="35%" *ngIf="suggestedProducts$ | async as products" [products]="products">
