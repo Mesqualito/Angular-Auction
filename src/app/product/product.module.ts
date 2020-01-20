@@ -5,6 +5,8 @@ import {ProductComponent} from './product.component';
 import {ProductDetailComponent} from './product-detail/product-detail.component';
 import {ProductSuggestionComponent} from './product-suggestion/product-suggestion.component';
 import {RouterModule} from "@angular/router";
+import {MatButtonModule} from "@angular/material/button";
+import {MatGridListModule} from "@angular/material/grid-list";
 
 
 @NgModule({
@@ -12,9 +14,11 @@ import {RouterModule} from "@angular/router";
   imports: [
     CommonModule,
     RouterModule.forChild([
-      { path: '', component: ProductComponent }
+      {path: '', component: ProductComponent}
     ]),
-    FlexLayoutModule
+    FlexLayoutModule,
+    MatButtonModule,
+    MatGridListModule
   ],
 })
 export class ProductModule { }
