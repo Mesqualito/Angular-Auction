@@ -1,18 +1,11 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {Product} from "../../shared/services";
+import {Component, Input} from '@angular/core';
+import {Product} from '../../shared/services';
 
 @Component({
   selector: 'nga-product-detail',
-  templateUrl: './product-detail.component.html',
-  styleUrls: ['./product-detail.component.scss']
+  styleUrls: [ './product-detail.component.scss' ],
+  templateUrl: './product-detail.component.html'
 })
-export class ProductDetailComponent implements OnInit {
-
+export class ProductDetailComponent {
   @Input() product: Product;
-
-  constructor() { }
-
-  ngOnInit() {
-  }
-
 }
