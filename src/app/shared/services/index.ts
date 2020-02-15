@@ -1,3 +1,5 @@
-import {Product, ProductService} from "./product.service";
+import {ProductService} from './product.service';
 
-export {Product, ProductService} from "./product.service";
+export { Product, ProductSearchParams, ProductService } from './product.service';
+
+export const SHARED_SERVICES = [];

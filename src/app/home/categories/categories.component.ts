@@ -1,33 +1,34 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
-import {Observable} from "rxjs";
-import {Product, ProductService} from "../../shared/services";
-import {ActivatedRoute} from "@angular/router";
-import {map, switchMap} from "rxjs/operators";
+import {ActivatedRoute} from '@angular/router';
+import {Observable} from 'rxjs';
+import {map, switchMap} from 'rxjs/operators';
+
+import {Product, ProductService} from '../../shared/services';
 
 @Component({
   selector: 'nga-categories',
+  styleUrls: [ './categories.component.scss' ],
   templateUrl: './categories.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  styleUrls: ['./categories.component.scss']
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CategoriesComponent {
-  readonly categoriesName$: Observable<string[]>;
-  readonly product$: Observable<Product[]>;
+  readonly categoriesNames$: Observable<string[]>;
+  readonly products$: Observable<Product[]>;
 
   constructor(
-    private _productService: ProductService,
-    private _route: ActivatedRoute
+    private productService: ProductService,
+    private route: ActivatedRoute
   ) {
-    this.categoriesName$ = this._productService.getDistinctCategories().pipe(
-      // creates an array of category names where the first one is "all":
+    this.categoriesNames$ = this.productService.getDistinctCategories().pipe(
       map(categories => ['all', ...categories]));
 
-    this.product$ = this._route.params.pipe(
-      switchMap(({ category }) => this._getCategory(category)));
+    this.products$ = this.route.params.pipe(
+      switchMap(({ category }) => this.getCategory(category)));
   }
 
-  private _getCategory(category: string): Observable<Product[]> {
-    category = category.toLowerCase();
-    return category === 'all' ? this._productService.getAll() : this._productService.getByCategory(category);
+  private getCategory(category: string): Observable<Product[]> {
+    return category.toLowerCase() === 'all'
+      ? this.productService.getAll()
+      : this.productService.getByCategory(category.toLowerCase());
   }
 }

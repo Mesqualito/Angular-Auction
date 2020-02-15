@@ -10,15 +10,19 @@ import {MatGridListModule} from "@angular/material/grid-list";
 
 
 @NgModule({
-  declarations: [ProductComponent, ProductDetailComponent, ProductSuggestionComponent],
   imports: [
     CommonModule,
-    RouterModule.forChild([
-      {path: '', component: ProductComponent}
-    ]),
     FlexLayoutModule,
+    RouterModule.forChild([
+      { path: '', component: ProductComponent }
+    ]),
     MatButtonModule,
     MatGridListModule
   ],
+  declarations: [
+    ProductComponent,
+    ProductDetailComponent,
+    ProductSuggestionComponent
+  ]
 })
-export class ProductModule { }
+export class ProductModule {}

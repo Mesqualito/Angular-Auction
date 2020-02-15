@@ -1,48 +1,52 @@
-import {Component, EventEmitter, Output} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, FormGroupDirective, ValidationErrors, Validators} from "@angular/forms";
-import {Router} from "@angular/router";
-import {ErrorStateMatcher} from "@angular/material/core";
+import {ChangeDetectionStrategy, Component, EventEmitter, Output} from '@angular/core';
+import {ErrorStateMatcher} from '@angular/material/core';
+import {Router} from '@angular/router';
+import {FormBuilder, FormControl, FormGroup, FormGroupDirective, ValidationErrors, Validators} from '@angular/forms';
 
 @Component({
   selector: 'nga-search-form',
+  styleUrls: [ './search-form.component.scss' ],
   templateUrl: './search-form.component.html',
-  styleUrls: ['./search-form.component.scss']
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SearchFormComponent {
   @Output() search = new EventEmitter();
   readonly matcher = new ShowOnFormInvalidStateMatcher();
   readonly searchForm: FormGroup;
 
-  constructor(fb: FormBuilder, private _router: Router) {
+  constructor(fb: FormBuilder, private router: Router) {
     this.searchForm = fb.group({
-      title: [, Validators.minLength(2)],
+      title   : [, Validators.minLength(2)],
       minPrice: [, Validators.min(0)],
-      maxPrice: [, Validators.min(0), Validators.max(10000)]
+      maxPrice: [, Validators.min(0)]
     }, {
       validator: [ minLessThanMaxValidator ]
     });
   }
 
-  // user clicked search button
   onSearch(): void {
     if (this.searchForm.valid) {
-      this.search.emit(); // sends an event to app component to close the search-form component
-      this._router.navigate(['/search-results'], {
+      this.search.emit();
+      this.router.navigate([ '/search' ], {
         queryParams: withoutEmptyValues(this.searchForm.value)
-    });
+      });
     }
   }
 }
 
-// errorStateMatcher property with ErrorStateMatcher object
-// which must implement isErrorState(), that takes the form control and the form
-// and has the app logic to decide whether the error message has to be shown
+/** Error when either control or the form is invalid. */
 export class ShowOnFormInvalidStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | null): boolean {
     return !!((control && control.invalid) || (form && form.hasError('minLessThanMax')));
   }
 }
 
+/**
+ * Removes properties with empty values (everything that's
+ * considered a "falsy" value in JavaScript) from the original object.
+ *
+ * See: https://developer.mozilla.org/en-US/docs/Glossary/Falsy
+ */
 function withoutEmptyValues(object: any): any {
   return Object.keys(object).reduce((queryParams: any, key) => {
     if (object[key]) { queryParams[key] = object[key]; }
@@ -50,14 +54,17 @@ function withoutEmptyValues(object: any): any {
   }, {});
 }
 
-// custom validator
+/**
+ * If both values - min and max prices are specified,
+ * make sure that the min is less or equal to the max.
+ */
 function minLessThanMaxValidator(group: FormGroup): ValidationErrors | null {
   const minPrice = group.controls['minPrice'].value;
   const maxPrice = group.controls['maxPrice'].value;
 
   if (minPrice && maxPrice) {
-    return minPrice <= maxPrice ? null : { minLessThanMax: true }; // true: show the error
+    return minPrice <= maxPrice ? null : { minLessThanMax: true };
   } else {
-    return null; // if null return: no error
+    return null;
   }
 }
