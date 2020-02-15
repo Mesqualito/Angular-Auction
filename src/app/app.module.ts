@@ -10,10 +10,16 @@ import {FlexLayoutModule} from "@angular/flex-layout";
 import {ProductService} from "./shared/services";
 import {routes} from "./app.routing";
 import {RouterModule} from "@angular/router";
+import {SearchFormComponent} from './shared/search-form/search-form.component';
+import {ReactiveFormsModule} from "@angular/forms";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatInputModule} from "@angular/material/input";
+import {MatSidenavModule} from "@angular/material/sidenav";
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    SearchFormComponent
   ],
   imports: [
     BrowserModule,
@@ -22,7 +28,11 @@ import {RouterModule} from "@angular/router";
     MatIconModule,
     MatToolbarModule,
     FlexLayoutModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSidenavModule
   ],
   providers: [ProductService],
   bootstrap: [AppComponent]
